@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>고가상품 세일즈 화법 완전정복</title>
+<meta name="description" content="1:1 컨설팅 770만원에 판매된 실전 세일즈 대본. 조혜영 대표와의 1:1 대화로 바로 확인해보세요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="style.css">
+<style>
+  html,body{height:100%;overflow:hidden;}
+  .chat-app{
+    max-width:600px;
+    margin:0 auto;
+    height:100vh;
+    height:100dvh;
+    display:flex;
+    flex-direction:column;
+    background:var(--bg-soft);
+  }
+  .chat-header{
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:14px 18px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+  }
+  .chat-header .avatar{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--navy);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:15px;
+    flex-shrink:0;
+    position:relative;
+  }
+  .chat-header .avatar::after{
+    content:'';
+    position:absolute;right:-1px;bottom:-1px;
+    width:10px;height:10px;border-radius:50%;
+    background:#39d353;border:2px solid #fff;
+  }
+  .chat-header .name{font-weight:800;font-size:14.5px;color:var(--navy);}
+  .chat-header .status{font-size:11.5px;color:var(--text-dim);margin-top:1px;}
+
+  .chat-messages{
+    flex:1;
+    overflow-y:auto;
+    padding:18px 16px 10px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .msg-row{
+    display:flex;
+    margin-top:10px;
+  }
+  .msg-row.bot{justify-content:flex-start;}
+  .msg-row.user{justify-content:flex-end;}
+  .bubble{
+    max-width:76%;
+    min-width:0;
+    padding:11px 14px;
+    font-size:14px;
+    line-height:1.55;
+    white-space:pre-line;
+    overflow-wrap:break-word;
+    word-break:break-word;
+  }
+  .msg-row.bot .bubble{
+    background:#fff;
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:4px 16px 16px 16px;
+  }
+  .msg-row.user .bubble{
+    background:var(--navy);
+    color:#fff;
+    border-radius:16px 4px 16px 16px;
+    font-weight:600;
+  }
+  .typing .bubble{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    padding:13px 16px;
+  }
+  .typing .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:#b7bccb;
+    animation:tdot 1.1s infinite ease-in-out;
+  }
+  .typing .dot:nth-child(2){animation-delay:.15s;}
+  .typing .dot:nth-child(3){animation-delay:.3s;}
+  @keyframes tdot{
+    0%,60%,100%{transform:translateY(0);opacity:.5;}
+    30%{transform:translateY(-4px);opacity:1;}
+  }
+
+  .rich-row{margin-top:12px;}
+  .rich-card{max-width:90%;}
+  .rich-card .growth-stat,
+  .rich-card .urgency-box{margin-top:0;}
+
+  .composer{
+    flex-shrink:0;
+    background:#fff;
+    border-top:1px solid var(--border);
+    padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  }
+  .composer:empty{padding:0;border-top:none;}
+
+  .choice-list{display:flex;flex-direction:column;gap:8px;}
+  .choice-btn{
+    width:100%;
+    padding:13px 16px;
+    border-radius:22px;
+    border:1.5px solid var(--navy);
+    background:#fff;
+    color:var(--navy);
+    font-weight:700;
+    font-size:14px;
+    cursor:pointer;
+    text-align:center;
+  }
+  .choice-btn:active{background:var(--bg-soft);}
+
+  .input-row{display:flex;gap:8px;align-items:center;}
+  .input-row input{
+    flex:1;
+    padding:13px 16px;
+    border-radius:22px;
+    border:1.5px solid var(--border);
+    font-size:14.5px;
+    font-family:inherit;
+    color:var(--text);
+    outline:none;
+  }
+  .input-row input:focus{border-color:var(--navy);}
+  .send-btn{
+    flex-shrink:0;
+    width:44px;height:44px;border-radius:50%;
+    background:var(--navy);
+    color:#fff;
+    border:none;
+    font-size:17px;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .field-err{
+    margin-top:7px;
+    font-size:12px;
+    color:var(--red);
+    font-weight:600;
+  }
+
+  .cta-btn{
+    display:block;
+    width:100%;
+    padding:17px;
+    border-radius:12px;
+    border:none;
+    background:var(--red);
+    color:#fff;
+    font-weight:800;
+    font-size:15.5px;
+    cursor:pointer;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ 1st LANDING: CHATBOT ============ -->
+
+<div class="chat-app">
+  <div class="chat-header">
+    <div class="avatar">조</div>
+    <div>
+      <div class="name">조혜영 · 아우라세일즈</div>
+      <div class="status">보통 몇 분 내로 답장해요</div>
+    </div>
+  </div>
+
+  <div class="chat-messages" id="chat-messages"></div>
+
+  <div class="composer" id="composer"></div>
+</div>
+
+<div class="page-loading" id="page-loading">로딩 중...</div>
+
+<script>
+var script = [
+  {type:'bot', text:'안녕하세요 😊'},
+  {type:'bot', text:'아우라세일즈 조혜영입니다'},
+  {type:'bot', text:'잠깐, 하나만 여쭤봐도 될까요?'},
+  {type:'bot', text:'가격을 말하는 순간, 고객 표정이 딱 굳어버리는 거\n혹시 겪어보셨어요?'},
+  {type:'choice', options:['네... 저도 그래요','아니요, 궁금해서 왔어요']},
+  {type:'bot', text:'그거, 노력이 부족해서가 아니에요'},
+  {type:'bot', text:'\'화법\'의 문제예요'},
+  {type:'bot', text:'저도 예전엔 완전 똑같았어요'},
+  {type:'bot', text:'근데 화법 하나를 바꾸고 나서 —'},
+  {type:'bot', text:'1:1 컨설팅 딱 한 번에 770만원 결제받았어요'},
+  {type:'stat'},
+  {type:'bot', text:'이 화법, 그대로 대본으로 옮겨뒀어요'},
+  {type:'choice', options:['저도 보고 싶어요']},
+  {type:'bot', text:'좋아요! 딱 30초만 시간 주세요 ⏱'},
+  {type:'bot', text:'화법 선점 알림 놓치지 않게, 자리부터 챙겨드릴게요'},
+  {type:'input', field:'name', prompt:'성함이 어떻게 되세요?', placeholder:'이름'},
+  {type:'bot', text:'{name}님, 반갑습니다 :)'},
+  {type:'input', field:'phone', prompt:'연락처 남겨주시면 선점 알림 보내드릴게요', placeholder:'01012345678 (-없이)'},
+  {type:'leadsave'},
+  {type:'bot', text:'등록 완료했어요 ✅'},
+  {type:'bot', text:'지금 이 화법, 2차 판매가 79,000원으로 진행 중이에요'},
+  {type:'schedule'},
+  {type:'bot', text:'낚시용 자료 아니에요'},
+  {type:'bot', text:'솔직히 110만원에 팔아도 아깝지 않은 실전 대본만 담았어요'},
+  {type:'bot', text:'{name}님, 지금이 제일 저렴할 때예요'},
+  {type:'cta', text:'지금 79,000원에 화법 선점하기'}
+];
+
+var lead = {name:'', phone:''};
+var step = 0;
+var msgsEl = document.getElementById('chat-messages');
+var composerEl = document.getElementById('composer');
+
+function fmt(text){
+  return text.replace('{name}', lead.name || '고객');
+}
+
+function scrollDown(){
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+}
+
+function addBubble(role, text){
+  var row = document.createElement('div');
+  row.className = 'msg-row ' + role;
+  var b = document.createElement('div');
+  b.className = 'bubble';
+  b.textContent = text;
+  row.appendChild(b);
+  msgsEl.appendChild(row);
+  scrollDown();
+}
+
+function addRich(node){
+  var row = document.createElement('div');
+  row.className = 'msg-row bot rich-row';
+  var card = document.createElement('div');
+  card.className = 'rich-card';
+  card.appendChild(node);
+  row.appendChild(card);
+  msgsEl.appendChild(row);
+  scrollDown();
+}
+
+function showTyping(){
+  var row = document.createElement('div');
+  row.className = 'msg-row bot typing';
+  row.id = 'typing-row';
+  row.innerHTML = '<div class="bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>';
+  msgsEl.appendChild(row);
+  scrollDown();
+}
+
+function hideTyping(){
+  var row = document.getElementById('typing-row');
+  if(row){ row.remove(); }
+}
+
+function buildStatCard(){
+  var el = document.createElement('div');
+  el.className = 'growth-stat';
+  el.innerHTML =
+    '<div class="tag">1:1 컨설팅 수강생 실제 매출 변화</div>' +
+    '<div class="row">' +
+      '<div class="before"><div class="lbl">2025년 6월</div><div class="amt">12,790,000원</div></div>' +
+      '<div class="arrow">→</div>' +
+      '<div class="after"><div class="lbl">2026년 4월</div><div class="amt">22,170,000원</div></div>' +
+    '</div>' +
+    '<div class="growth-badge">10개월 만에 매출 +73% 성장</div>' +
+    '<div class="growth-note">※ 월 300만원 → 3,000만원까지 성장한 사례도 있습니다</div>';
+  return el;
+}
+
+function buildScheduleCard(){
+  var el = document.createElement('div');
+  el.className = 'urgency-box';
+  el.innerHTML =
+    '<div class="warn">🚨 단계별 가격 인상 진행 중!</div>' +
+    '<div class="feature-list">' +
+      '<div class="feature-item"><span class="ic">⚡</span><span class="tx"><b>결제 완료 즉시<br>PDF 파일 자동 다운로드</b></span></div>' +
+      '<div class="feature-item"><span class="ic">💬</span><span class="tx"><b>카카오 알림톡으로<br>가이드 자동 발송</b></span></div>' +
+    '</div>' +
+    '<div class="schedule">' +
+      '<div class="sched-row done"><span>1차 판매가</span><span>59,000원 (마감)</span></div>' +
+      '<div class="sched-row current"><span>2차 현재가</span><span class="price">79,000원 (판매중)</span></div>' +
+      '<div class="sched-row next"><span>3차 판매가</span><span>99,000원 (인상예정)</span></div>' +
+      '<div class="sched-row next"><span>4차 판매가</span><span>119,000원 (인상예정)</span></div>' +
+    '</div>';
+  return el;
+}
+
+function clearComposer(){
+  composerEl.innerHTML = '';
+}
+
+function renderChoice(item){
+  var wrap = document.createElement('div');
+  wrap.className = 'choice-list';
+  item.options.forEach(function(label){
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'choice-btn';
+    btn.textContent = label;
+    btn.addEventListener('click', function(){
+      clearComposer();
+      addBubble('user', label);
+      step++;
+      setTimeout(playNext, 350);
+    });
+    wrap.appendChild(btn);
+  });
+  composerEl.appendChild(wrap);
+}
+
+function renderInput(item){
+  var row = document.createElement('div');
+  row.className = 'input-row';
+  var input = document.createElement('input');
+  input.type = item.field === 'phone' ? 'tel' : 'text';
+  input.placeholder = item.placeholder;
+  input.maxLength = 20;
+  var sendBtn = document.createElement('button');
+  sendBtn.type = 'button';
+  sendBtn.className = 'send-btn';
+  sendBtn.textContent = '→';
+  row.appendChild(input);
+  row.appendChild(sendBtn);
+  composerEl.appendChild(row);
+
+  var errEl = null;
+  function showErr(msg){
+    if(errEl){ errEl.remove(); }
+    errEl = document.createElement('div');
+    errEl.className = 'field-err';
+    errEl.textContent = msg;
+    composerEl.appendChild(errEl);
+  }
+
+  function submit(){
+    var val = input.value.trim();
+    if(item.field === 'name'){
+      if(!val){ showErr('성함을 입력해주세요.'); return; }
+    } else if(item.field === 'phone'){
+      var digits = val.replace(/[^0-9]/g, '');
+      if(!/^01[0-9]{8,9}$/.test(digits)){ showErr('올바른 연락처를 입력해주세요. (예: 01012345678)'); return; }
+      val = digits;
+    }
+    lead[item.field] = val;
+    clearComposer();
+    addBubble('user', val);
+    step++;
+    setTimeout(playNext, 350);
+  }
+
+  sendBtn.addEventListener('click', submit);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ submit(); }
+  });
+  setTimeout(function(){ input.focus(); }, 300);
+}
+
+function renderCta(item){
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'cta-btn';
+  btn.textContent = item.text;
+  btn.addEventListener('click', function(){
+    document.getElementById('page-loading').classList.add('show');
+    setTimeout(function(){
+      window.location.href = 'https://salesscript-mauve.vercel.app/product.html';
+    }, 550);
+  });
+  composerEl.appendChild(btn);
+}
+
+function playNext(){
+  if(step >= script.length){ return; }
+  var item = script[step];
+
+  if(item.type === 'bot'){
+    showTyping();
+    var delay = 500 + Math.min(fmt(item.text).length * 14, 500);
+    setTimeout(function(){
+      hideTyping();
+      addBubble('bot', fmt(item.text));
+      step++;
+      playNext();
+    }, delay);
+    return;
+  }
+
+  if(item.type === 'stat' || item.type === 'schedule'){
+    showTyping();
+    setTimeout(function(){
+      hideTyping();
+      addRich(item.type === 'stat' ? buildStatCard() : buildScheduleCard());
+      step++;
+      playNext();
+    }, 500);
+    return;
+  }
+
+  if(item.type === 'leadsave'){
+    if(typeof saveLead === 'function'){
+      saveLead(lead).catch(function(err){ console.error(err); });
+    }
+    step++;
+    playNext();
+    return;
+  }
+
+  if(item.type === 'choice'){ renderChoice(item); return; }
+  if(item.type === 'input'){ renderInput(item); return; }
+  if(item.type === 'cta'){ renderCta(item); return; }
+}
+
+playNext();
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="firebase-init.js"></script>
+
+</body>
+</html>
