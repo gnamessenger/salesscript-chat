@@ -193,7 +193,19 @@
 var script = [
   {type:'bot', text:'안녕하세요 😊'},
   {type:'bot', text:'아우라세일즈 조혜영입니다'},
-  {type:'bot', text:'잠깐, 하나만 여쭤봐도 될까요?'},
+  {type:'bot', text:'먼저, 무료로 하나 드리고 싶은 게 있어요'},
+  {type:'bot', text:'1:1 컨설팅에서만 알려드리던 화법,\n핵심만 정리한 미리보기 자료예요'},
+  {type:'gift'},
+  {type:'bot', text:'선착순으로 드리는 거라, 화법에 관심 없으시면 안 받으셔도 괜찮아요'},
+  {type:'choice', options:['네, 무료로 받을게요']},
+  {type:'bot', text:'좋아요! 자료 보내드리기 전에 몇 가지만 확인할게요'},
+  {type:'input', field:'name', prompt:'성함이 어떻게 되세요?', placeholder:'이름'},
+  {type:'bot', text:'{name}님, 반갑습니다 :)'},
+  {type:'input', field:'phone', prompt:'연락처 남겨주시면 무료자료 바로 보내드릴게요', placeholder:'01012345678 (-없이)'},
+  {type:'leadsave'},
+  {type:'bot', text:'무료자료 신청 완료했어요 ✅'},
+  {type:'bot', text:'곧 카카오 알림톡으로 보내드릴게요'},
+  {type:'bot', text:'그런데 {name}님, 잠깐 하나만 더 여쭤봐도 될까요?'},
   {type:'bot', text:'가격을 말하는 순간, 고객 표정이 딱 굳어버리는 거\n혹시 겪어보셨어요?'},
   {type:'choice', options:['네... 저도 그래요','아니요, 궁금해서 왔어요']},
   {type:'bot', text:'그거, 노력이 부족해서가 아니에요'},
@@ -203,14 +215,7 @@ var script = [
   {type:'bot', text:'1:1 컨설팅 딱 한 번에 770만원 결제받았어요'},
   {type:'stat'},
   {type:'bot', text:'이 화법, 그대로 대본으로 옮겨뒀어요'},
-  {type:'choice', options:['저도 보고 싶어요']},
-  {type:'bot', text:'좋아요! 딱 30초만 시간 주세요 ⏱'},
-  {type:'bot', text:'화법 선점 알림 놓치지 않게, 자리부터 챙겨드릴게요'},
-  {type:'input', field:'name', prompt:'성함이 어떻게 되세요?', placeholder:'이름'},
-  {type:'bot', text:'{name}님, 반갑습니다 :)'},
-  {type:'input', field:'phone', prompt:'연락처 남겨주시면 선점 알림 보내드릴게요', placeholder:'01012345678 (-없이)'},
-  {type:'leadsave'},
-  {type:'bot', text:'등록 완료했어요 ✅'},
+  {type:'bot', text:'방금 보내드린 미리보기는 맛보기고, 전체 버전은 따로 있어요'},
   {type:'bot', text:'지금 이 화법, 2차 판매가 79,000원으로 진행 중이에요'},
   {type:'schedule'},
   {type:'bot', text:'낚시용 자료 아니에요'},
@@ -298,6 +303,16 @@ function buildScheduleCard(){
       '<div class="sched-row next"><span>3차 판매가</span><span>99,000원 (인상예정)</span></div>' +
       '<div class="sched-row next"><span>4차 판매가</span><span>119,000원 (인상예정)</span></div>' +
     '</div>';
+  return el;
+}
+
+function buildGiftCard(){
+  var el = document.createElement('div');
+  el.className = 'bonus-box';
+  el.innerHTML =
+    '<span class="tag">무료 증정</span>' +
+    '<h4>🎁 화법 미리보기 자료</h4>' +
+    '<p>1:1 컨설팅에서만 알려드리던 핵심 문장들, 맛보기로 먼저 정리해드렸어요.</p>';
   return el;
 }
 
@@ -401,11 +416,12 @@ function playNext(){
     return;
   }
 
-  if(item.type === 'stat' || item.type === 'schedule'){
+  if(item.type === 'stat' || item.type === 'schedule' || item.type === 'gift'){
     showTyping();
     setTimeout(function(){
       hideTyping();
-      addRich(item.type === 'stat' ? buildStatCard() : buildScheduleCard());
+      var card = item.type === 'stat' ? buildStatCard() : item.type === 'schedule' ? buildScheduleCard() : buildGiftCard();
+      addRich(card);
       step++;
       playNext();
     }, 500);
