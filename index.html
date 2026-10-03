@@ -218,6 +218,14 @@
   .own-grid img{width:100%;height:150px;object-fit:cover;object-position:top;border-radius:8px;border:1px solid #eadcb8;display:block;margin-bottom:6px;background:#fff;}
   .own-grid b{font-size:15px;}
   .own-note{font-size:11.5px;color:#8a7a55;margin-top:8px;}
+  .swipe{display:flex;gap:10px;overflow-x:auto;margin-top:10px;padding-bottom:2px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .swipe::-webkit-scrollbar{display:none;}
+  .swipe .slide{flex:0 0 82%;scroll-snap-align:center;text-decoration:none;color:#191919;text-align:center;font-size:13px;font-weight:700;}
+  .swipe .slide img{width:100%;height:auto;max-height:440px;object-fit:contain;border-radius:8px;border:1px solid #eadcb8;display:block;background:#fff;margin-bottom:6px;}
+  .swipe-hint{font-size:11.5px;color:#8a7a55;margin-top:6px;text-align:center;}
+  .rich-card .sched-row{font-size:13px;padding:10px 12px;gap:8px;}
+  .rich-card .sched-row span{white-space:nowrap;}
+  .rich-card .feature-item .tx{font-size:13px;}
   .rv-strip{display:flex;gap:8px;overflow-x:auto;margin-top:10px;padding-bottom:4px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
   .rv-strip a{flex:0 0 70%;scroll-snap-align:start;}
   .rv-strip img{width:100%;height:260px;object-fit:cover;object-position:top;border-radius:8px;border:1px solid #eadcb8;display:block;background:#fff;}
@@ -247,21 +255,23 @@
 var script = [
   {type:'bot', text:'안녕하세요 😊 이지나예요'},
   {type:'bot', text:'광고 보고 찾아와 주셔서 반가워요!'},
-  {type:'bot', text:'이 대화창으로 오신 분들께는\n실전 영업 자료 4종을 한 번에 묶어서 드리고 있어요'},
-  {type:'gift', tag:'무료 증정', title:'🎁 실전 영업 자료 4종', desc:'📖 고가상품 화법 미리보기 (샘플 PDF)<br>🛡️ 반론 처리 TOP 5<br>📱 보험 상담 문자·카톡 3선<br>🎤 협찬 세미나로 상품 소개하기'},
+  {type:'bot', text:'이 대화창으로 오신 분들께는\n실전 영업 자료 6종을 한 번에 묶어서 드리고 있어요'},
+  {type:'gift', tag:'무료 증정 · 가입 필요 없음', title:'🎁 실전 영업 자료 6종', desc:'📖 화법 미리보기 3종 (고가상품·보험 개인편·보험 법인편)<br>🛡️ 반론 처리 TOP 5<br>📱 보험 상담 문자·카톡 3선<br>🎤 협찬 세미나로 상품 소개하기'},
   {type:'bot', text:'상담만 가면 말이 꼬이거나,\n가격 얘기에서 고객 표정이 굳는 게 느껴졌던 분들께 특히 도움이 될 거예요'},
   {type:'choice', options:['네, 받아볼게요']},
   {type:'bot', text:'좋아요! 자료 보내드릴 곳만 알려주세요'},
   {type:'input', id:'name-step', field:'name', prompt:'성함이 어떻게 되세요?', placeholder:'이름'},
   {type:'bot', text:'{name}님, 반가워요 :)'},
   {type:'input', field:'email', prompt:'이메일 주소도 남겨주세요', placeholder:'example@email.com'},
-  {type:'input', field:'phone', prompt:'연락처도 남겨주시면 새 자료 나올 때 챙겨드릴게요', placeholder:'01012345678 (-없이)'},
+  {type:'input', field:'phone', prompt:'연락처도 남겨주세요', placeholder:'01012345678 (-없이)'},
   {type:'confirm'},
   {type:'consent'},
   {type:'leadsave'},
-  {type:'bot', text:'감사합니다! 약속드린 자료 4종이에요 👇\n누르시면 바로 받아지니 꼭 저장해 두세요'},
-  {type:'link', title:'🎁 실전 영업 자료 4종', desc:'필요한 자료를 눌러서 받으세요', links:[
+  {type:'bot', text:'감사합니다! 약속드린 자료 6종이에요 👇\n누르시면 바로 받아지니 꼭 저장해 두세요'},
+  {type:'link', title:'🎁 실전 영업 자료 6종', desc:'필요한 자료를 눌러서 받으세요', links:[
     ['📖 고가상품 화법 미리보기', 'https://salesscript-mauve.vercel.app/sample-sales.pdf'],
+    ['📖 보험 화법 미리보기 · 개인편', 'https://salesscript-mauve.vercel.app/sample-personal.pdf'],
+    ['📖 보험 화법 미리보기 · 법인편', 'https://salesscript-mauve.vercel.app/sample-corporate.pdf'],
     ['🛡️ 반론 처리 TOP 5', 'https://salesscript-mauve.vercel.app/free-objection-top5.pdf'],
     ['📱 보험 상담 문자·카톡 3선', 'https://salesscript-mauve.vercel.app/free-insurance-sms-3.pdf'],
     ['🎤 협찬 세미나로 상품 소개하기', 'https://salesscript-mauve.vercel.app/free-sponsor-seminar-script.pdf']
@@ -271,17 +281,17 @@ var script = [
   {type:'choice', options:['솔직히 없어요', '있긴 한데 잘 안 통해요']},
   {type:'bot', text:'괜찮아요, 저도 그랬어요'},
   {type:'bot', text:'노점상, 학습지, 보험영업까지 직접 부딪히면서\n고객이 마음을 여는 말의 순서를 하나씩 찾았어요'},
-  {type:'bot', text:'그렇게 정리한 화법으로 제 매출이 이렇게 바뀌었어요'},
+  {type:'bot', text:'그렇게 정리한 화법으로 제 매출이 이렇게 바뀌었어요\n2025년 6월 1,279만 원 → 2026년 4월 2,217만 원'},
   {type:'own'},
-  {type:'bot', text:'제 실제 매출보고서예요\n2025년 6월 1,279만 원 → 2026년 4월 2,217만 원'},
   {type:'bot', text:'이 화법을 배운 분들 후기도 보여드릴게요'},
   {type:'reviews'},
   {type:'choice', options:['후기 확인했어요']},
   {type:'bot', text:'이 화법을 처음부터 끝까지,\n그대로 읽기만 하면 되게 정리한 게\n「고가상품 세일즈 화법 완전정복」이에요'},
   {type:'bot', text:'✔ 1차 미팅 대본: 첫인상·라포, 니즈 파악, 2차 약속 잡기\n✔ 2차 미팅 대본: 상품 설명, 가격 제시, 클로징\n✔ 보너스 「마법의 반론 제기」: 거절별 반론 스크립트 40개+\n✔ 상담 문자·카톡 템플릿 12선 + 미팅 한 장 요약'},
-  {type:'bot', text:'원래 770만원 1:1 과정에서 알려드리는 내용인데,\n전자책으로는 79,000원이에요'},
+  {type:'bot', text:'원래 770만원 1:1 과정에서만 알려드리던 내용이에요'},
+  {type:'bot', text:'그 핵심을 처음으로 전자책 한 권에 정리해서,\n이번에 특별히 79,000원에 열어드려요'},
   {type:'schedule'},
-  {type:'bot', text:'고객 한 명만 더 계약해도 바로 남는 금액이에요'},
+  {type:'bot', text:'✔ 쉬워요: 공부할 필요 없이 대본 그대로 읽으면 돼요\n✔ 빨라요: 오늘 받아서 내일 상담에 바로 써요\n✔ 아껴요: 770만원 과정의 핵심을 79,000원에'},
   {type:'cta', text:'79,000원에 화법 전자책 받기'}
 ];
 
@@ -422,15 +432,15 @@ function hideTyping(){
 }
 
 function buildOwnCard(){
+  // 파일 이름과 실제 달이 다른 것이 있어 이미지 속 날짜 기준으로 적음 (2026-10-03 확인)
+  var months = [['2024년 8월 · 859만 원','revenue-2411.jpg'],['2024년 11월 · 1,204만 원','revenue-b2.jpg'],['2025년 6월 · 1,279만 원','revenue-2506.jpg'],['2025년 11월 · 1,900만 원','revenue-2511.jpg'],['2026년 1월 · 1,780만 원','revenue-2601.jpg'],['2026년 4월 · 2,217만 원','revenue-2604.jpg']];
   var el = document.createElement('div');
   el.className = 'bonus-box';
-  el.innerHTML =
-    '<span class="tag">이지나 실제 매출보고서</span>' +
-    '<div class="own-grid">' +
-      '<a href="https://salesscript-mauve.vercel.app/reviews/revenue-2506.jpg" target="_blank" rel="noopener"><img src="https://salesscript-mauve.vercel.app/reviews/revenue-2506.jpg" alt="2025년 6월 매출보고서" loading="lazy"><span>2025년 6월<br><b>1,279만 원</b></span></a>' +
-      '<a href="https://salesscript-mauve.vercel.app/reviews/revenue-2604.jpg" target="_blank" rel="noopener"><img src="https://salesscript-mauve.vercel.app/reviews/revenue-2604.jpg" alt="2026년 4월 매출보고서" loading="lazy"><span>2026년 4월<br><b>2,217만 원</b></span></a>' +
-    '</div>' +
-    '<p class="own-note">이미지를 누르면 크게 볼 수 있어요</p>';
+  var html = '<span class="tag">이지나 실제 매출보고서 (일부)</span><div class="swipe">';
+  months.forEach(function(m){
+    html += '<a class="slide" href="https://salesscript-mauve.vercel.app/reviews/' + m[1] + '" target="_blank" rel="noopener"><img src="https://salesscript-mauve.vercel.app/reviews/' + m[1] + '" alt="' + m[0] + ' 매출보고서" loading="lazy"><span>' + m[0] + '</span></a>';
+  });
+  el.innerHTML = html + '</div><p class="swipe-hint">👈 손으로 넘겨보세요 · 누르면 크게 보여요</p>';
   return el;
 }
 
@@ -438,11 +448,11 @@ function buildReviewsCard(){
   var imgs = ['review-8.jpg','review-9.jpg','review-10.jpg','review-11.jpg','review-12.jpg','review-6.jpg'];
   var el = document.createElement('div');
   el.className = 'bonus-box';
-  var html = '<span class="tag">실제 후기 캡처 · 옆으로 넘겨보세요</span><div class="rv-strip">';
+  var html = '<span class="tag">실제 후기 캡처 ' + imgs.length + '장</span><div class="swipe">';
   imgs.forEach(function(f){
-    html += '<a href="https://salesscript-mauve.vercel.app/reviews/' + f + '" target="_blank" rel="noopener"><img src="https://salesscript-mauve.vercel.app/reviews/' + f + '" alt="실제 후기" loading="lazy"></a>';
+    html += '<a class="slide" href="https://salesscript-mauve.vercel.app/reviews/' + f + '" target="_blank" rel="noopener"><img src="https://salesscript-mauve.vercel.app/reviews/' + f + '" alt="실제 후기" loading="lazy"></a>';
   });
-  el.innerHTML = html + '</div>';
+  el.innerHTML = html + '</div><p class="swipe-hint">👈 손으로 넘겨보세요 · 누르면 크게 보여요</p>';
   return el;
 }
 
@@ -512,7 +522,9 @@ function buildConsentCard(){
     '· 수집 항목: 성함, 이메일, 연락처<br>' +
     '· 이용 목적: 무료 자료 전달 및 관련 안내<br>' +
     '· 보유 기간: 수집일로부터 3년 (동의 철회 시 지체 없이 파기)<br>' +
-    '· 동의를 거부하실 수 있으나, 이 경우 자료를 받으실 수 없습니다.</p>';
+    '· 동의를 거부하실 수 있으나, 이 경우 자료를 받으실 수 없습니다.</p>' +
+    '<p style="font-size:12.5px;line-height:1.7;margin-top:8px;"><b>[선택] 새 자료·이벤트 소식 받기</b><br>' +
+    '새 무료 자료와 이벤트 소식을 문자·이메일로 보내드려요. 언제든 수신 거부할 수 있어요.</p>';
   return el;
 }
 
@@ -537,9 +549,10 @@ function buildLinkCard(item){
 }
 
 function renderConsent(){
-  renderReplyChips(['동의하고 자료 받기'], function(){
+  renderReplyChips(['모두 동의 (새 소식 받기 포함)', '필수만 동의'], function(label){
+    lead.marketing = label.indexOf('모두') === 0;
     clearComposer();
-    addBubble('user', '동의합니다');
+    addBubble('user', label);
     step++;
     setTimeout(playNext, 350);
   });
@@ -695,7 +708,16 @@ function playNext(){
   }
 
   if(item.type === 'leadsave'){
-    if(typeof saveLead === 'function'){
+    // 선택 동의(새 소식)까지 같이 저장 — 저장 규칙에 막히면 기본 항목만 다시 저장
+    if(typeof db !== 'undefined'){
+      db.collection('leads').add({
+        name: lead.name, email: lead.email, phone: lead.phone,
+        marketing: !!lead.marketing, source: 'chat-salesscript',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).catch(function(){
+        if(typeof saveLead === 'function'){ saveLead(lead).catch(function(err){ console.error(err); }); }
+      });
+    } else if(typeof saveLead === 'function'){
       saveLead(lead).catch(function(err){ console.error(err); });
     }
     step++;
