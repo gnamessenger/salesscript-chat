@@ -550,7 +550,8 @@ function buildConsentCard(){
     '· 보유 기간: 수집일로부터 3년 (동의 철회 시 지체 없이 파기)<br>' +
     '· 동의를 거부하실 수 있으나, 이 경우 자료를 받으실 수 없습니다.</p>' +
     '<p style="font-size:12.5px;line-height:1.7;margin-top:8px;"><b>[선택] 광고성 정보 수신 동의</b><br>' +
-    '새 무료 자료·이벤트 소식을 문자·이메일로 받기 (언제든 수신 거부 가능)</p>';
+    '🎁 동의하시면 새 무료 자료가 나올 때 <b>가장 먼저</b> 보내드려요<br>' +
+    '(새 자료·이벤트 소식을 문자·이메일로 · 언제든 수신 거부 가능)</p>';
   return el;
 }
 
@@ -576,7 +577,7 @@ function buildLinkCard(item){
 }
 
 function renderConsent(){
-  renderReplyChips(['모두 동의 (광고성 정보 수신 포함)', '필수만 동의'], function(label){
+  renderReplyChips(['모두 동의 (새 자료 소식 받기 포함)', '필수만 동의'], function(label){
     lead.marketing = label.indexOf('모두') === 0;
     clearComposer();
     addBubble('user', label);
@@ -779,6 +780,8 @@ function playNext(){
   }
 
   if(item.type === 'kakao'){
+    // 광고성 수신에 동의한 분에게만 채널 추가 안내 (필수만 동의한 분은 건너뜀)
+    if(!lead.marketing){ step++; playNext(); return; }
     showTyping();
     setTimeout(function(){
       hideTyping();
