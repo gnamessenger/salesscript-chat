@@ -282,6 +282,7 @@ var script = [
     ['📱 보험 상담 문자 3선', 'https://salesscript-mauve.vercel.app/free-insurance-sms-3.pdf', '2쪽 · 소개받은 분 첫 연락, 1차 상담 후 2차 미팅 안내, 계약 직후 감사 문자'],
     ['🎤 협찬 세미나 스크립트', 'https://salesscript-mauve.vercel.app/free-sponsor-seminar-script.pdf', '3쪽 · 오프닝부터 퀴즈·통계·현장 혜택·신청서 클로징까지 8단계 진행 스크립트']
   ]},
+  {type:'kakao'},
   {type:'bot', text:'앗, {name}님 하나만 여쭤볼게요!'},
   {type:'bot', text:'고객이 "생각해볼게요" 하고 돌아설 때,\n바로 이어갈 말이 있으세요?'},
   {type:'choice', options:['솔직히 없어요', '있긴 한데 잘 안 통해요']},
@@ -565,6 +566,21 @@ function renderConsent(){
   });
 }
 
+function buildKakaoCard(){
+  var el = document.createElement('div');
+  el.className = 'bonus-box';
+  el.innerHTML = '<p style="font-size:13px;line-height:1.55;margin:0;">새 무료 자료가 나오면 가장 먼저 알려드릴게요 😊</p>';
+  var a = document.createElement('a');
+  a.href = 'https://pf.kakao.com/_rxhZLG/friend';
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.className = 'cta-btn';
+  a.style.cssText = 'margin-top:10px;text-align:center;text-decoration:none;font-size:14px;padding:12px;background:#FEE500;color:#191919;';
+  a.textContent = '💬 카카오톡 채널 추가하기';
+  el.appendChild(a);
+  return el;
+}
+
 function findStepIndex(id){
   for(var i = 0; i < script.length; i++){
     if(script[i].id === id){ return i; }
@@ -699,6 +715,17 @@ function playNext(){
       hideTyping();
       addRich(buildConsentCard());
       renderConsent();
+    }, 500);
+    return;
+  }
+
+  if(item.type === 'kakao'){
+    showTyping();
+    setTimeout(function(){
+      hideTyping();
+      addRich(buildKakaoCard());
+      step++;
+      setTimeout(playNext, 1200);
     }, 500);
     return;
   }
