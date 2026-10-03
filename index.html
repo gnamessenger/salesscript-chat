@@ -223,6 +223,25 @@
   .rich-card .bonus-box{padding:14px 14px;}
   .gi .gt{color:#191919;font-weight:600;min-width:0;}
   .gi .gp{flex-shrink:0;font-size:11.5px;font-weight:700;color:#8a6a1f;background:#fdebc2;border-radius:10px;padding:2px 8px;}
+  .book-card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #e3dcef;}
+  .bk-top{display:flex;gap:12px;padding:14px;background:linear-gradient(135deg,#f3eefb,#fff);}
+  .bk-top img{width:84px;height:112px;object-fit:cover;border-radius:6px;box-shadow:0 4px 12px rgba(60,30,110,.25);flex-shrink:0;}
+  .bk-meta{display:flex;flex-direction:column;justify-content:center;min-width:0;}
+  .bk-eyebrow{font-size:11px;color:#7D55C7;font-weight:700;letter-spacing:.04em;}
+  .bk-meta b{font-size:16px;line-height:1.3;color:#1f1830;margin:4px 0;}
+  .bk-by{font-size:12px;color:#6b6480;}
+  .bk-rows{padding:4px 14px 10px;}
+  .bk-row{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid #f0ebf7;}
+  .bk-row:first-child{border-top:none;}
+  .bk-tag{flex-shrink:0;width:48px;font-size:10.5px;font-weight:800;color:#7D55C7;letter-spacing:.05em;padding-top:2px;}
+  .bk-row b{display:block;font-size:13.5px;color:#1f1830;}
+  .bk-row span{display:block;font-size:12px;color:#6b6480;margin-top:1px;}
+  .promise-card{background:#1f1830;border-radius:14px;padding:6px 16px;}
+  .pm-row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid rgba(232,198,106,.25);}
+  .pm-row:first-child{border-top:none;}
+  .pm-no{flex-shrink:0;font-size:12px;font-weight:800;color:#E8C66A;padding-top:2px;letter-spacing:.05em;}
+  .pm-row b{display:block;font-size:14.5px;color:#fff;line-height:1.4;}
+  .pm-row span{display:block;font-size:12px;color:#c9c2d8;margin-top:3px;}
   .swipe{display:flex;gap:10px;overflow-x:auto;margin-top:10px;padding-bottom:2px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
   .swipe::-webkit-scrollbar{display:none;}
   .swipe .slide{flex:0 0 82%;scroll-snap-align:center;text-decoration:none;color:#191919;text-align:center;font-size:13px;font-weight:700;}
@@ -294,11 +313,11 @@ var script = [
   {type:'reviews'},
   {type:'choice', options:['후기 확인했어요']},
   {type:'bot', text:'이 화법을 처음부터 끝까지,\n그대로 읽기만 하면 되게 정리한 게\n「고가상품 세일즈 화법 완전정복」이에요'},
-  {type:'bot', text:'✔ 1차 미팅 대본: 첫인상·라포, 니즈 파악, 2차 약속 잡기\n✔ 2차 미팅 대본: 상품 설명, 가격 제시, 클로징\n✔ 보너스 「마법의 반론 제기」: 거절별 반론 스크립트 40개+\n✔ 상담 문자·카톡 템플릿 12선 + 미팅 한 장 요약'},
+  {type:'book'},
   {type:'bot', text:'원래 770만원 1:1 과정에서만 알려드리던 내용이에요'},
   {type:'bot', text:'그 핵심을 처음으로 전자책 한 권에 정리해서,\n이번에 특별히 79,000원에 열어드려요'},
   {type:'schedule'},
-  {type:'bot', text:'✔ 쉬워요: 공부할 필요 없이 대본 그대로 읽으면 돼요\n✔ 빨라요: 오늘 받아서 내일 상담에 바로 써요\n✔ 아껴요: 770만원 과정의 핵심을 79,000원에'},
+  {type:'promise'},
   {type:'cta', text:'79,000원에 화법 전자책 받기'}
 ];
 
@@ -566,6 +585,35 @@ function renderConsent(){
   });
 }
 
+function buildBookCard(){
+  var el = document.createElement('div');
+  el.className = 'book-card';
+  var rows = [['PART 1','1차 미팅 대본','첫인상·라포 · 니즈 파악 · 2차 약속'],
+              ['PART 2','2차 미팅 대본','상품 설명 · 가격 제시 · 클로징'],
+              ['BONUS','마법의 반론 제기','거절별 반론 스크립트 40개+'],
+              ['GIFT','문자·카톡 템플릿 12선','미팅 한 장 요약 포함']];
+  var html = '<div class="bk-top"><img src="https://salesscript-mauve.vercel.app/cover-sales.png" alt="고가상품 세일즈 화법 완전정복 표지"><div class="bk-meta"><span class="bk-eyebrow">전자책 · 99쪽</span><b>고가상품 세일즈<br>화법 완전정복</b><span class="bk-by">이지나 지음</span></div></div><div class="bk-rows">';
+  rows.forEach(function(r){
+    html += '<div class="bk-row"><span class="bk-tag">' + r[0] + '</span><div><b>' + r[1] + '</b><span>' + r[2] + '</span></div></div>';
+  });
+  el.innerHTML = html + '</div>';
+  return el;
+}
+
+function buildPromiseCard(){
+  var el = document.createElement('div');
+  el.className = 'promise-card';
+  var rows = [['배우지 마세요. 그대로 읽으세요.','공부 대신, 현장에서 검증된 대본을 그대로'],
+              ['오늘 받고, 내일 상담에서.','다운로드 즉시, 다음 미팅부터 바로'],
+              ['770만원 과정의 정수를, 79,000원에.','1:1로만 전하던 핵심을 한 권에']];
+  var html = '';
+  rows.forEach(function(r, i){
+    html += '<div class="pm-row"><span class="pm-no">0' + (i + 1) + '</span><div><b>' + r[0] + '</b><span>' + r[1] + '</span></div></div>';
+  });
+  el.innerHTML = html;
+  return el;
+}
+
 function buildKakaoCard(){
   var el = document.createElement('div');
   el.className = 'bonus-box';
@@ -716,6 +764,17 @@ function playNext(){
       addRich(buildConsentCard());
       renderConsent();
     }, 500);
+    return;
+  }
+
+  if(item.type === 'book' || item.type === 'promise'){
+    showTyping();
+    setTimeout(function(){
+      hideTyping();
+      addRich(item.type === 'book' ? buildBookCard() : buildPromiseCard());
+      step++;
+      setTimeout(playNext, 900);
+    }, 600);
     return;
   }
 
