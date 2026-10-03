@@ -218,6 +218,9 @@
   .own-grid img{width:100%;height:150px;object-fit:cover;object-position:top;border-radius:8px;border:1px solid #eadcb8;display:block;margin-bottom:6px;background:#fff;}
   .own-grid b{font-size:15px;}
   .own-note{font-size:11.5px;color:#8a7a55;margin-top:8px;}
+  .gi{margin-top:8px;line-height:1.45;}
+  .gi b{display:block;font-size:13.5px;color:#191919;}
+  .gi span{display:block;font-size:12px;color:#7a6a45;margin-top:2px;}
   .swipe{display:flex;gap:10px;overflow-x:auto;margin-top:10px;padding-bottom:2px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
   .swipe::-webkit-scrollbar{display:none;}
   .swipe .slide{flex:0 0 82%;scroll-snap-align:center;text-decoration:none;color:#191919;text-align:center;font-size:13px;font-weight:700;}
@@ -256,7 +259,7 @@ var script = [
   {type:'bot', text:'안녕하세요 😊 이지나예요'},
   {type:'bot', text:'광고 보고 찾아와 주셔서 반가워요!'},
   {type:'bot', text:'이 대화창으로 오신 분들께는\n실전 영업 자료 6종을 한 번에 묶어서 드리고 있어요'},
-  {type:'gift', tag:'무료 증정 · 가입 필요 없음', title:'🎁 실전 영업 자료 6종', desc:'📖 화법 미리보기 3종 (고가상품·보험 개인편·보험 법인편)<br>🛡️ 반론 처리 TOP 5<br>📱 보험 상담 문자·카톡 3선<br>🎤 협찬 세미나로 상품 소개하기'},
+  {type:'gift', tag:'무료 증정 · 가입 필요 없음', title:'🎁 실전 영업 자료 6종 (총 41쪽)', desc:'<div class="gi"><b>📖 고가상품 화법 미리보기</b><span>11쪽 · 세일즈 마인드셋 + 상담 전 알아둘 화법 공식, 1차 미팅 대본 맛보기</span></div><div class="gi"><b>📖 보험 화법 미리보기 · 개인편</b><span>11쪽 · 이 업계의 냉정한 현실, 방치된 고객이 블루오션인 이유, 3대 핵심 타깃 시장</span></div><div class="gi"><b>📖 보험 화법 미리보기 · 법인편</b><span>11쪽 · 법인 영업 기초 용어(회사 구조·돈의 흐름·세금) + 법인 개척 7단계</span></div><div class="gi"><b>🛡️ 반론 처리 TOP 5</b><span>3쪽 · "생각해볼게요" "비싸요" "돈이 없어요" "나중에 할게요" "배우자에게 물어볼게요"에 그대로 읽는 대답</span></div><div class="gi"><b>📱 보험 상담 문자·카톡 3선</b><span>2쪽 · 소개받은 분 첫 연락, 1차 상담 후 2차 미팅 안내, 계약 직후 감사 문자</span></div><div class="gi"><b>🎤 협찬 세미나로 상품 소개하기</b><span>3쪽 · 오프닝부터 퀴즈·통계·현장 혜택·신청서 클로징까지 8단계 진행 스크립트</span></div>'},
   {type:'bot', text:'상담만 가면 말이 꼬이거나,\n가격 얘기에서 고객 표정이 굳는 게 느껴졌던 분들께 특히 도움이 될 거예요'},
   {type:'choice', options:['네, 받아볼게요']},
   {type:'bot', text:'좋아요! 자료 보내드릴 곳만 알려주세요'},
@@ -269,12 +272,12 @@ var script = [
   {type:'leadsave'},
   {type:'bot', text:'감사합니다! 약속드린 자료 6종이에요 👇\n누르시면 바로 받아지니 꼭 저장해 두세요'},
   {type:'link', title:'🎁 실전 영업 자료 6종', desc:'필요한 자료를 눌러서 받으세요', links:[
-    ['📖 고가상품 화법 미리보기', 'https://salesscript-mauve.vercel.app/sample-sales.pdf'],
-    ['📖 보험 화법 미리보기 · 개인편', 'https://salesscript-mauve.vercel.app/sample-personal.pdf'],
-    ['📖 보험 화법 미리보기 · 법인편', 'https://salesscript-mauve.vercel.app/sample-corporate.pdf'],
-    ['🛡️ 반론 처리 TOP 5', 'https://salesscript-mauve.vercel.app/free-objection-top5.pdf'],
-    ['📱 보험 상담 문자·카톡 3선', 'https://salesscript-mauve.vercel.app/free-insurance-sms-3.pdf'],
-    ['🎤 협찬 세미나로 상품 소개하기', 'https://salesscript-mauve.vercel.app/free-sponsor-seminar-script.pdf']
+    ['📖 고가상품 화법 미리보기', 'https://salesscript-mauve.vercel.app/sample-sales.pdf', '11쪽 · 세일즈 마인드셋 + 상담 전 알아둘 화법 공식, 1차 미팅 대본 맛보기'],
+    ['📖 보험 화법 미리보기 · 개인편', 'https://salesscript-mauve.vercel.app/sample-personal.pdf', '11쪽 · 이 업계의 냉정한 현실, 방치된 고객이 블루오션인 이유, 3대 핵심 타깃 시장'],
+    ['📖 보험 화법 미리보기 · 법인편', 'https://salesscript-mauve.vercel.app/sample-corporate.pdf', '11쪽 · 법인 영업 기초 용어(회사 구조·돈의 흐름·세금) + 법인 개척 7단계'],
+    ['🛡️ 반론 처리 TOP 5', 'https://salesscript-mauve.vercel.app/free-objection-top5.pdf', '3쪽 · "생각해볼게요" "비싸요" "돈이 없어요" "나중에 할게요" "배우자에게 물어볼게요"에 그대로 읽는 대답'],
+    ['📱 보험 상담 문자·카톡 3선', 'https://salesscript-mauve.vercel.app/free-insurance-sms-3.pdf', '2쪽 · 소개받은 분 첫 연락, 1차 상담 후 2차 미팅 안내, 계약 직후 감사 문자'],
+    ['🎤 협찬 세미나로 상품 소개하기', 'https://salesscript-mauve.vercel.app/free-sponsor-seminar-script.pdf', '3쪽 · 오프닝부터 퀴즈·통계·현장 혜택·신청서 클로징까지 8단계 진행 스크립트']
   ]},
   {type:'bot', text:'앗, {name}님 하나만 여쭤볼게요!'},
   {type:'bot', text:'고객이 "생각해볼게요" 하고 돌아설 때,\n바로 이어갈 말이 있으세요?'},
@@ -523,8 +526,8 @@ function buildConsentCard(){
     '· 이용 목적: 무료 자료 전달 및 관련 안내<br>' +
     '· 보유 기간: 수집일로부터 3년 (동의 철회 시 지체 없이 파기)<br>' +
     '· 동의를 거부하실 수 있으나, 이 경우 자료를 받으실 수 없습니다.</p>' +
-    '<p style="font-size:12.5px;line-height:1.7;margin-top:8px;"><b>[선택] 새 자료·이벤트 소식 받기</b><br>' +
-    '새 무료 자료와 이벤트 소식을 문자·이메일로 보내드려요. 언제든 수신 거부할 수 있어요.</p>';
+    '<p style="font-size:12.5px;line-height:1.7;margin-top:8px;"><b>[선택] 광고성 정보 수신 동의</b><br>' +
+    '새 무료 자료·이벤트 소식을 문자·이메일로 받기 (언제든 수신 거부 가능)</p>';
   return el;
 }
 
@@ -542,14 +545,14 @@ function buildLinkCard(item){
     a.rel = 'noopener';
     a.className = 'cta-btn';
     a.style.cssText = 'margin-top:' + (i ? 8 : 12) + 'px;text-align:left;text-decoration:none;font-size:14px;padding:12px 14px;background:#fff;color:#191919;border:1px solid #f0d59a;';
-    a.textContent = l[0] + '  받기 →';
+    a.innerHTML = '<b style="display:block;">' + l[0] + '  받기 →</b>' + (l[2] ? '<span style="display:block;font-size:12px;font-weight:500;color:#6b6b6b;margin-top:3px;line-height:1.45;">' + l[2] + '</span>' : '');
     el.appendChild(a);
   });
   return el;
 }
 
 function renderConsent(){
-  renderReplyChips(['모두 동의 (새 소식 받기 포함)', '필수만 동의'], function(label){
+  renderReplyChips(['모두 동의 (광고성 정보 수신 포함)', '필수만 동의'], function(label){
     lead.marketing = label.indexOf('모두') === 0;
     clearComposer();
     addBubble('user', label);
