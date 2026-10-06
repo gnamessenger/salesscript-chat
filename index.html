@@ -233,7 +233,7 @@
   .bk-rows{padding:4px 14px 10px;}
   .bk-row{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-top:1px solid #f0ebf7;}
   .bk-row:first-child{border-top:none;}
-  .bk-tag{flex-shrink:0;width:48px;font-size:10.5px;font-weight:800;color:#7D55C7;letter-spacing:.05em;padding-top:2px;}
+  .bk-tag{flex-shrink:0;width:56px;font-size:10.5px;font-weight:800;color:#7D55C7;letter-spacing:.05em;padding-top:2px;}
   .bk-row b{display:block;font-size:13.5px;color:#1f1830;}
   .bk-row span{display:block;font-size:12px;color:#6b6480;margin-top:1px;}
   .promise-card{background:#1f1830;border-radius:14px;padding:6px 16px;}
@@ -590,8 +590,8 @@ function buildBookCard(){
   el.className = 'book-card';
   var rows = [['PART 1','1차 미팅 대본','첫인상·라포 · 니즈 파악 · 2차 약속'],
               ['PART 2','2차 미팅 대본','상품 설명 · 가격 제시 · 클로징'],
-              ['BONUS','마법의 반론 제기','거절별 반론 스크립트 40개+'],
-              ['GIFT','문자·카톡 템플릿 12선','미팅 한 장 요약 포함']];
+              ['후기 선물','보너스 전자책 「마법의 반론 제기」','반론 처리 스크립트 40개+'],
+              ['후기 선물','문자·카톡 템플릿 12선 외 3종','한 장 요약 · 업데이트 평생 열람 · 첨삭 1회(월 5명)']];
   var html = '<div class="bk-top"><img src="https://salesscript-mauve.vercel.app/cover-sales.png" alt="고가상품 세일즈 화법 완전정복 표지"><div class="bk-meta"><span class="bk-eyebrow">전자책 · 99쪽</span><b>고가상품 세일즈<br>화법 완전정복</b><span class="bk-by">이지나 지음</span></div></div><div class="bk-rows">';
   rows.forEach(function(r){
     html += '<div class="bk-row"><span class="bk-tag">' + r[0] + '</span><div><b>' + r[1] + '</b><span>' + r[2] + '</span></div></div>';
