@@ -247,6 +247,16 @@
   .swipe .slide{flex:0 0 82%;scroll-snap-align:center;text-decoration:none;color:#191919;text-align:center;font-size:13px;font-weight:700;}
   .swipe .slide img{width:100%;height:auto;max-height:440px;object-fit:contain;border-radius:8px;border:1px solid #eadcb8;display:block;background:#fff;margin-bottom:6px;}
   .swipe-hint{font-size:11.5px;color:#8a7a55;margin-top:6px;text-align:center;}
+  /* PC(마우스)에서는 손으로 못 넘기니 ◀ ▶ 버튼 (2026-10-17) */
+  .sw-wrap{position:relative;}
+  .sw-btn{display:none;position:absolute;top:calc(50% - 22px);width:36px;height:36px;border-radius:50%;border:1px solid #eadcb8;background:rgba(255,255,255,.95);color:#191919;font-size:20px;line-height:1;cursor:pointer;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);padding:0;}
+  .sw-btn.prev{left:4px;} .sw-btn.next{right:4px;}
+  .sw-btn:disabled{opacity:.3;cursor:default;}
+  .hint-pc{display:none;}
+  @media (hover:hover) and (pointer:fine){
+    .sw-btn{display:flex;}
+    .hint-pc{display:inline;} .hint-touch{display:none;}
+  }
   .rich-card .sched-row{font-size:13px;padding:10px 12px;gap:8px;}
   .rich-card .sched-row span{white-space:nowrap;}
   .rich-card .feature-item .tx{font-size:13px;}
@@ -473,23 +483,46 @@ function buildOwnCard(){
   var months = [['2024년 8월 · 859만 원','revenue-2411.jpg'],['2024년 11월 · 1,204만 원','revenue-b2.jpg'],['2025년 6월 · 1,279만 원','revenue-2506.jpg'],['2025년 11월 · 1,900만 원','revenue-2511.jpg'],['2026년 1월 · 1,780만 원','revenue-2601.jpg'],['2026년 4월 · 2,217만 원','revenue-2604.jpg']];
   var el = document.createElement('div');
   el.className = 'bonus-box';
-  var html = '<span class="tag">이지나 실제 매출보고서 (일부)</span><div class="swipe">';
+  var html = '<span class="tag">이지나 실제 매출보고서 (일부)</span><div class="sw-wrap"><div class="swipe">';
   months.forEach(function(m){
     html += '<a class="slide" href="https://salesscript-mauve.vercel.app/reviews/' + m[1] + '" target="_blank" rel="noopener"><img src="https://salesscript-mauve.vercel.app/reviews/' + m[1] + '" alt="' + m[0] + ' 매출보고서" loading="lazy"><span>' + m[0] + '</span></a>';
   });
-  el.innerHTML = html + '</div><p class="swipe-hint">👈 손으로 넘겨보세요 · 누르면 크게 보여요</p>';
+  el.innerHTML = html + SWIPE_TAIL;
+  bindSwipe(el);
   return el;
+}
+
+var SWIPE_TAIL = '</div><button type="button" class="sw-btn prev" aria-label="이전">‹</button><button type="button" class="sw-btn next" aria-label="다음">›</button></div>' +
+  '<p class="swipe-hint"><span class="hint-touch">👈 손으로 넘겨보세요</span><span class="hint-pc">◀ ▶ 버튼으로 넘겨보세요</span> · 누르면 크게 보여요</p>';
+
+function bindSwipe(el){
+  var sw = el.querySelector('.swipe');
+  var prev = el.querySelector('.sw-btn.prev');
+  var next = el.querySelector('.sw-btn.next');
+  function step(dir){
+    var slide = sw.querySelector('.slide');
+    sw.scrollBy({left: dir * (slide ? slide.offsetWidth + 10 : sw.clientWidth), behavior: 'smooth'});
+  }
+  function update(){
+    prev.disabled = sw.scrollLeft <= 2;
+    next.disabled = sw.scrollLeft + sw.clientWidth >= sw.scrollWidth - 2;
+  }
+  prev.addEventListener('click', function(){ step(-1); });
+  next.addEventListener('click', function(){ step(1); });
+  sw.addEventListener('scroll', update);
+  setTimeout(update, 0);
 }
 
 function buildReviewsCard(){
   var imgs = ['review-8.jpg','review-9.jpg','review-10.jpg','review-11.jpg','review-12.jpg','review-6.jpg'];
   var el = document.createElement('div');
   el.className = 'bonus-box';
-  var html = '<span class="tag">실제 후기 캡처 ' + imgs.length + '장</span><div class="swipe">';
+  var html = '<span class="tag">실제 후기 캡처 ' + imgs.length + '장</span><div class="sw-wrap"><div class="swipe">';
   imgs.forEach(function(f){
     html += '<a class="slide" href="https://salesscript-mauve.vercel.app/reviews/' + f + '" target="_blank" rel="noopener"><img src="https://salesscript-mauve.vercel.app/reviews/' + f + '" alt="실제 후기" loading="lazy"></a>';
   });
-  el.innerHTML = html + '</div><p class="swipe-hint">👈 손으로 넘겨보세요 · 누르면 크게 보여요</p>';
+  el.innerHTML = html + SWIPE_TAIL;
+  bindSwipe(el);
   return el;
 }
 
