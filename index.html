@@ -66,7 +66,7 @@
     line-height:1.55;
     white-space:pre-line;
     overflow-wrap:break-word;
-    word-break:break-word;
+    word-break:keep-all;
   }
   .msg-row.bot .bubble{
     background:#fff;
@@ -278,7 +278,7 @@
 <script>
 var script = [
   {type:'bot', text:'안녕하세요 😊 이지나예요'},
-  {type:'bot', text:'광고 보고 찾아와 주셔서 반가워요!'},
+  {type:'bot', text:'{welcome}'},
   {type:'bot', text:'이 대화창으로 오신 분들께는\n실전 영업 자료 7종을 한 번에 묶어서 드리고 있어요'},
   {type:'gift', tag:'무료 증정 · 가입 필요 없음', title:'🎁 실전 영업 자료 7종', desc:'<p class="gsub">총 74쪽 · 바로 다운로드</p><div class="gi"><span class="gt">📖 고가상품 화법 샘플</span><span class="gp">23쪽</span></div><div class="gi"><span class="gt">📖 보험 개인편 샘플</span><span class="gp">19쪽</span></div><div class="gi"><span class="gt">📖 보험 법인편 샘플</span><span class="gp">14쪽</span></div><div class="gi"><span class="gt">❓ 계약을 부르는 질문 30</span><span class="gp">10쪽</span></div><div class="gi"><span class="gt">🛡️ 반론 처리 TOP 5</span><span class="gp">3쪽</span></div><div class="gi"><span class="gt">📱 보험 상담 문자 3선</span><span class="gp">2쪽</span></div><div class="gi"><span class="gt">🎤 협찬 세미나 스크립트</span><span class="gp">3쪽</span></div>'},
   {type:'bot', text:'상담만 가면 말이 꼬이거나,\n가격 얘기에서 고객 표정이 굳는 게 느껴졌던 분들께 특히 도움이 될 거예요'},
@@ -320,13 +320,24 @@ var script = [
   {type:'cta', text:'79,000원에 화법 전자책 받기'}
 ];
 
+/* 어디서 온 손님인지: 링크 뒤 ?from=ig-bio 처럼 붙이면 leads의 from 칸에 저장 (2026-10-17)
+   from이 없으면 utm_source, 메타 광고 클릭(fbclid)이면 meta-ad, 아무것도 없으면 direct */
+var FROM = (function(){
+  var p = new URLSearchParams(location.search);
+  var v = (p.get('from') || p.get('utm_source') || (p.get('fbclid') ? 'meta-ad' : '') || 'direct').toLowerCase();
+  v = v.replace(/[^a-z0-9_-]/g, '').slice(0, 30);
+  return v || 'direct';
+})();
+var FROM_AD = /(^|[-_])ads?($|[-_])/.test(FROM) || /^(meta|facebook|fb)/.test(FROM);
+var WELCOME = FROM_AD ? '광고 보고 찾아와 주셔서 반가워요!' : '찾아와 주셔서 반가워요!';
+
 var lead = {name:'', email:'', phone:''};
 var step = 0;
 var msgsEl = document.getElementById('chat-messages');
 var composerEl = document.getElementById('composer');
 
 function fmt(text){
-  return text.replace('{name}', lead.name || '고객');
+  return text.replace('{name}', lead.name || '고객').replace('{welcome}', WELCOME);
 }
 
 function scrollDown(){
@@ -449,6 +460,7 @@ function makeBar(enabled, placeholder){
 function renderReplyChips(labels, onPick){
   composerEl.appendChild(makeChips(labels, onPick));
   composerEl.appendChild(makeBar(false, '위 버튼을 눌러 답장하세요').bar);
+  scrollDown(); // 답장 버튼이 생기며 대화창이 줄어들어도 마지막 말풍선이 가려지지 않게
 }
 
 function hideTyping(){
@@ -530,7 +542,7 @@ function buildConfirmCard(){
   el.innerHTML =
     '<span class="tag">입력 확인</span>' +
     '<h4>입력하신 정보가 정확한가요?</h4>' +
-    '<p>* 오타가 있으면 자료를 못 받으실 수 있어요<br>' +
+    '<p>* 오타가 있으면 새 자료 소식을 못 받으실 수 있어요<br>' +
     '성함 : ' + lead.name + '<br>' +
     '이메일 : ' + lead.email + '<br>' +
     '연락처 : ' + lead.phone + '</p>';
@@ -670,6 +682,7 @@ function renderInput(item){
   input.type = item.field === 'phone' ? 'tel' : item.field === 'email' ? 'email' : 'text';
   input.maxLength = item.field === 'email' ? 60 : 20;
   composerEl.appendChild(kb.bar);
+  scrollDown();
 
   var errEl = null;
   function showErr(msg){
@@ -717,6 +730,7 @@ function renderCta(item){
     }, 550);
   });
   composerEl.appendChild(btn);
+  scrollDown();
 }
 
 function playNext(){
@@ -807,7 +821,7 @@ function playNext(){
     if(typeof db !== 'undefined'){
       db.collection('leads').add({
         name: lead.name, email: lead.email, phone: lead.phone,
-        marketing: !!lead.marketing, source: 'chat-salesscript',
+        marketing: !!lead.marketing, source: 'chat-salesscript', from: FROM,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }).catch(function(){
         if(typeof saveLead === 'function'){ saveLead(lead).catch(function(err){ console.error(err); }); }
