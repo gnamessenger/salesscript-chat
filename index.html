@@ -247,6 +247,7 @@
   .swipe .slide{flex:0 0 82%;scroll-snap-align:center;text-decoration:none;color:#191919;text-align:center;font-size:13px;font-weight:700;}
   .swipe .slide img{width:100%;height:auto;max-height:440px;object-fit:contain;border-radius:8px;border:1px solid #eadcb8;display:block;background:#fff;margin-bottom:6px;}
   .swipe-hint{font-size:11.5px;color:#8a7a55;margin-top:6px;text-align:center;}
+  .result-note{font-size:11px;color:#8a8494;margin-top:4px;text-align:center;line-height:1.5;}
   /* PC(마우스)에서는 손으로 못 넘기니 ◀ ▶ 버튼 (2026-10-17) */
   .sw-wrap{position:relative;}
   .sw-btn{display:none;position:absolute;top:calc(50% - 22px);width:36px;height:36px;border-radius:50%;border:1px solid #eadcb8;background:rgba(255,255,255,.95);color:#191919;font-size:20px;line-height:1;cursor:pointer;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);padding:0;}
@@ -264,6 +265,7 @@
   .rv-strip a{flex:0 0 70%;scroll-snap-align:start;}
   .rv-strip img{width:100%;height:260px;object-fit:cover;object-position:top;border-radius:8px;border:1px solid #eadcb8;display:block;background:#fff;}
 </style>
+<script src="meta-pixel.js"></script>
 </head>
 <body>
 
@@ -487,7 +489,8 @@ function buildOwnCard(){
   months.forEach(function(m){
     html += '<a class="slide" href="https://salesscript-mauve.vercel.app/reviews/' + m[1] + '" target="_blank" rel="noopener"><img src="https://salesscript-mauve.vercel.app/reviews/' + m[1] + '" alt="' + m[0] + ' 매출보고서" loading="lazy"><span>' + m[0] + '</span></a>';
   });
-  el.innerHTML = html + SWIPE_TAIL;
+  // 개인차 안내 (2026-10-18 결정표 🔴2 — 광고 도착 페이지 심사 대비)
+  el.innerHTML = html + SWIPE_TAIL + '<p class="result-note">※ 실제 정산 기록이며, 결과는 사람마다 다를 수 있어요.</p>';
   bindSwipe(el);
   return el;
 }
@@ -537,7 +540,8 @@ function buildStatCard(){
       '<div class="after"><div class="lbl">2026년 4월</div><div class="amt">22,170,000원</div></div>' +
     '</div>' +
     '<div class="growth-badge">10개월 만에 매출 +73% 성장</div>' +
-    '<div class="growth-note">※ 월 300만원 → 3,000만원까지 성장한 사례도 있습니다</div>';
+    '<div class="growth-note">※ 월 300만원 → 3,000만원까지 성장한 사례도 있습니다</div>' +
+    '<p class="result-note">※ 실제 정산 기록이며, 결과는 사람마다 다를 수 있어요.</p>';
   return el;
 }
 
@@ -850,17 +854,24 @@ function playNext(){
   }
 
   if(item.type === 'leadsave'){
+    // 메타 픽셀 Lead: 연락처가 leads에 '저장 성공'한 순간 한 번만 (이름·이메일·전화는 보내지 않음, 들어온 곳 꼬리표만)
+    var pixelLead = function(){
+      if(window.AuraPixel && !window.__auraLeadSent){
+        window.__auraLeadSent = true;
+        AuraPixel.track('Lead', { content_name: 'chat-free-pack-7', content_category: FROM });
+      }
+    };
     // 선택 동의(새 소식)까지 같이 저장 — 저장 규칙에 막히면 기본 항목만 다시 저장
     if(typeof db !== 'undefined'){
       db.collection('leads').add({
         name: lead.name, email: lead.email, phone: lead.phone,
         marketing: !!lead.marketing, source: 'chat-salesscript', from: FROM,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      }).catch(function(){
-        if(typeof saveLead === 'function'){ saveLead(lead).catch(function(err){ console.error(err); }); }
+      }).then(pixelLead).catch(function(){
+        if(typeof saveLead === 'function'){ saveLead(lead).then(pixelLead).catch(function(err){ console.error(err); }); }
       });
     } else if(typeof saveLead === 'function'){
-      saveLead(lead).catch(function(err){ console.error(err); });
+      saveLead(lead).then(pixelLead).catch(function(err){ console.error(err); });
     }
     step++;
     playNext();
