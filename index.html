@@ -549,16 +549,12 @@ function buildScheduleCard(){
   var el = document.createElement('div');
   el.className = 'urgency-box';
   el.innerHTML =
-    '<div class="warn">🚨 단계별 가격 인상 진행 중!</div>' +
     '<div class="feature-list">' +
       '<div class="feature-item"><span class="ic">⚡</span><span class="tx"><b>결제 완료 즉시<br>PDF 파일 자동 다운로드</b></span></div>' +
       '<div class="feature-item"><span class="ic">📱</span><span class="tx"><b>마이페이지에서<br>언제든 다시 다운로드</b></span></div>' +
     '</div>' +
     '<div class="schedule">' +
-      '<div class="sched-row done"><span>1차 판매가</span><span>59,000원 (마감)</span></div>' +
-      '<div class="sched-row current"><span>2차 현재가</span><span class="price">79,000원 (판매중)</span></div>' +
-      '<div class="sched-row next"><span>3차 판매가</span><span>99,000원 (인상예정)</span></div>' +
-      '<div class="sched-row next"><span>4차 판매가</span><span>119,000원 (인상예정)</span></div>' +
+      '<div class="sched-row current"><span>판매가</span><span class="price">79,000원</span></div>' +
     '</div>';
   return el;
 }
