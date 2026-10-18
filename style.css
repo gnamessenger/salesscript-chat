@@ -925,7 +925,6 @@ footer{
   flex-direction:column;
   gap:12px;
 }
-.urgency-box > .feature-list:first-child{margin-top:0;} /* 가격 인상 안내 줄 삭제(10/18) 뒤 위 여백 맞춤 */
 .feature-item{
   display:flex;
   gap:10px;
