@@ -485,12 +485,12 @@ function buildOwnCard(){
   var months = [['2024년 8월 · 859만 원','revenue-2411.jpg'],['2024년 11월 · 1,204만 원','revenue-b2.jpg'],['2025년 6월 · 1,279만 원','revenue-2506.jpg'],['2025년 11월 · 1,900만 원','revenue-2511.jpg'],['2026년 1월 · 1,780만 원','revenue-2601.jpg'],['2026년 4월 · 2,217만 원','revenue-2604.jpg']];
   var el = document.createElement('div');
   el.className = 'bonus-box';
-  var html = '<span class="tag">이지나 실제 매출보고서 (일부)</span><div class="sw-wrap"><div class="swipe">';
+  var html = '<span class="tag">실제 월별 정산 기록 (일부)</span><div class="sw-wrap"><div class="swipe">';
   months.forEach(function(m){
     html += '<a class="slide" href="https://salesscript-mauve.vercel.app/reviews/' + m[1] + '" target="_blank" rel="noopener"><img src="https://salesscript-mauve.vercel.app/reviews/' + m[1] + '" alt="' + m[0] + ' 매출보고서" loading="lazy"><span>' + m[0] + '</span></a>';
   });
   // 개인차 안내 (2026-10-18 결정표 🔴2 — 광고 도착 페이지 심사 대비)
-  el.innerHTML = html + SWIPE_TAIL + '<p class="result-note">※ 실제 정산 기록이며, 결과는 사람마다 다를 수 있어요.</p>';
+  el.innerHTML = html + SWIPE_TAIL + '<p class="result-note">※ 결과는 사람마다 다를 수 있어요.</p>';
   bindSwipe(el);
   return el;
 }
@@ -533,7 +533,7 @@ function buildStatCard(){
   var el = document.createElement('div');
   el.className = 'growth-stat';
   el.innerHTML =
-    '<div class="tag">이지나 실제 매출 변화</div>' +
+    '<div class="tag">실제 월별 정산 기록</div>' +
     '<div class="row">' +
       '<div class="before"><div class="lbl">2025년 6월</div><div class="amt">12,790,000원</div></div>' +
       '<div class="arrow">→</div>' +
@@ -541,7 +541,7 @@ function buildStatCard(){
     '</div>' +
     '<div class="growth-badge">10개월 만에 매출 +73% 성장</div>' +
     '<div class="growth-note">※ 월 300만원 → 3,000만원까지 성장한 사례도 있습니다</div>' +
-    '<p class="result-note">※ 실제 정산 기록이며, 결과는 사람마다 다를 수 있어요.</p>';
+    '<p class="result-note">※ 결과는 사람마다 다를 수 있어요.</p>';
   return el;
 }
 
