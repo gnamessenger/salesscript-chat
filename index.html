@@ -485,7 +485,7 @@ function buildOwnCard(){
   var months = [['2024년 8월 · 859만 원','revenue-2411.jpg'],['2024년 11월 · 1,204만 원','revenue-b2.jpg'],['2025년 6월 · 1,279만 원','revenue-2506.jpg'],['2025년 11월 · 1,900만 원','revenue-2511.jpg'],['2026년 1월 · 1,780만 원','revenue-2601.jpg'],['2026년 4월 · 2,217만 원','revenue-2604.jpg']];
   var el = document.createElement('div');
   el.className = 'bonus-box';
-  var html = '<span class="tag">실제 월별 정산 기록 (일부)</span><div class="sw-wrap"><div class="swipe">';
+  var html = '<span class="tag">실제 월별 매출 기록 (일부)</span><div class="sw-wrap"><div class="swipe">';
   months.forEach(function(m){
     html += '<a class="slide" href="https://salesscript-mauve.vercel.app/reviews/' + m[1] + '" target="_blank" rel="noopener"><img src="https://salesscript-mauve.vercel.app/reviews/' + m[1] + '" alt="' + m[0] + ' 매출보고서" loading="lazy"><span>' + m[0] + '</span></a>';
   });
@@ -533,7 +533,7 @@ function buildStatCard(){
   var el = document.createElement('div');
   el.className = 'growth-stat';
   el.innerHTML =
-    '<div class="tag">실제 월별 정산 기록</div>' +
+    '<div class="tag">실제 월별 매출 기록</div>' +
     '<div class="row">' +
       '<div class="before"><div class="lbl">2025년 6월</div><div class="amt">12,790,000원</div></div>' +
       '<div class="arrow">→</div>' +
